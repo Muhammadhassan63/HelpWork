@@ -6,8 +6,8 @@ const inputElement = document.getElementById('input');
 const dropdown_value = document.getElementById('language');
 const copyButton = document.getElementById("copyButton");
 
-let selectedOption = dropdown_value.value;
 
+let selectedOption = dropdown_value.value;
 let text_field_data = "";
 const loader = document.getElementById('loader');
 const loaderText = document.getElementById('loader2');
@@ -37,6 +37,7 @@ async function getMessage() {
     // Show the loader while waiting for the response
     loader.style.display = "block";
     loaderText.style.display = "block";
+    
 
 
     const options = {
@@ -57,6 +58,7 @@ async function getMessage() {
         console.log(data.choices[0].message.content);
         // Set the value of the output textarea
         output.value = data.choices[0].message.content;
+        copyButton.style.display="block"
     } catch (error) {
         console.log(error);
     } finally {
