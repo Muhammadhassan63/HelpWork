@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Rainblur Landing Page Template: Tailwind Toolbox</title>
+    <title>HelpWork-Your helper in coding problems</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
@@ -35,7 +35,6 @@
     style="background-image: url('header.png')"
   >
     <div class="h-full">
-
       <!--Nav-->
       <div class="w-full container mx-auto">
         <div class="w-full flex items-center justify-between">
@@ -84,7 +83,7 @@
 
       <!--Main-->
       <div
-        class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center"
+        class="container pt-12 md:pt-18 mx-auto flex flex-wrap flex-col md:flex-row items-center"
       >
         <!--Left Col-->
         <div
@@ -111,6 +110,8 @@
           <form
             class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
           >
+
+
             <div class="mb-4">
               <label
                 class="block text-blue-300 py-2 font-bold mb-2"
@@ -121,7 +122,7 @@
               </label>
               <div class="flex flex-col">
                 <textarea
-                  class="h-60 shadow appearance-none border rounded w-full h-40 bg-gray-800 text-white px-3 py-2 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                  class="h-40 shadow appearance-none border rounded w-full h-40 bg-gray-800 text-white px-3 py-2 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                   id="input"
                   placeholder="Any programming language question"
                 ></textarea>
@@ -134,13 +135,15 @@
                   Your Answer
                 </label>
 
+              
+
+                  <img id="loader" src="bars.gif" alt="Loading..." style="background: none; width: 80px; height: 60px; display: none;">
+                  <p class="mb-2" id="loader2" style="display: none;"> Loading</p>
                 <textarea
                   class="h-60 shadow appearance-none border rounded w-full h-40 bg-gray-800 text-white px-3 py-2 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out mb-4"
                   id="output"
                   placeholder="Answer"
                 ></textarea>
-                
-
 
                 <select
                   id="language"
@@ -178,7 +181,9 @@
               >
                 Post
               </button>
+              <!-- Button to Trigger Popup -->
               <button
+                id="openPopupButton"
                 class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                 type="button"
               >
@@ -186,6 +191,71 @@
               </button>
             </div>
           </form>
+          <!-- Popup Overlay (Initially Hidden) -->
+          <div
+            id="popupOverlay"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+          >
+            <!-- Popup Form Container -->
+            <div class="max-w-md mx-auto bg-white rounded p-6 shadow-md">
+              <h2 class="text-2xl font-semibold mb-4">Refer To Expert Form</h2>
+
+              <label
+                for="name"
+                class="block text-gray-600 text-sm font-medium mb-2"
+                >Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="w-full border rounded px-3 py-2 focus:ring focus:ring-indigo-300"
+                placeholder="Your Name"
+              />
+
+              <label
+                for="question"
+                class="block text-gray-600 text-sm font-medium mt-4 mb-2"
+                >Question</label
+              >
+              <textarea
+                id="question"
+                name="question"
+                rows="4"
+                class="w-full border rounded px-3 py-2 focus:ring focus:ring-indigo-300"
+                placeholder="Your Question"
+              ></textarea>
+
+              <label
+                for="email"
+                class="block text-gray-600 text-sm font-medium mt-4 mb-2"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="w-full border rounded px-3 py-2 focus:ring focus:ring-indigo-300"
+                placeholder="Your Email"
+              />
+
+              <button
+                class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out mt-2"
+                type="button"
+                id="payButton"
+              >
+                Pay
+              </button>
+              <!-- Close Button to Hide Popup -->
+              <button
+                id="closePopupButton"
+                class="text-red-600 mt-2 hover:text-red-800 focus:outline-none"
+                type="button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
           <div
             id="alertBox"
             class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 hidden"
@@ -194,14 +264,6 @@
             <span class="font-medium">Empty alert! </span> Need to add question
             in text field.
           </div>
-        </div>
-
-        <!--Right Col-->
-        <div class="w-full xl:w-3/5 p-12 overflow-hidden">
-          <img
-            class="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6"
-            src="macbook.svg"
-          />
         </div>
 
         <div class="mx-auto md:pt-16">
@@ -238,4 +300,18 @@
     </div>
   </body>
   <script src="/app.js"></script>
+
+  <script>
+    const openPopupButton = document.getElementById("openPopupButton");
+    const closePopupButton = document.getElementById("closePopupButton");
+    const popupOverlay = document.getElementById("popupOverlay");
+
+    openPopupButton.addEventListener("click", () => {
+      popupOverlay.classList.remove("hidden");
+    });
+
+    closePopupButton.addEventListener("click", () => {
+      popupOverlay.classList.add("hidden");
+    });
+  </script>
 </html>

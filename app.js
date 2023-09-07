@@ -7,6 +7,8 @@ let selectedOption = dropdown_value.value;
 
 let text_field_data = "";
 const loader = document.getElementById('loader');
+const loaderText = document.getElementById('loader2');
+
 
 dropdown_value.addEventListener('change', function () {
     selectedOption = dropdown_value.value;
@@ -27,6 +29,7 @@ async function getMessage() {
 
     // Show the loader while waiting for the response
     loader.style.display = "block";
+    loaderText.style.display = "block";
 
     const options = {
         method: 'POST',
@@ -51,6 +54,8 @@ async function getMessage() {
     } finally {
         // Hide the loader when the response is received
         loader.style.display = "none";
+        loaderText.style.display = "none";
+
     }
 }
 
