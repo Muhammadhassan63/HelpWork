@@ -110,24 +110,43 @@
           <form
             class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
           >
-          <div class="flex flex-col items-center space-y-4">
-            <div class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out relative inline-flex">
+            <div class="flex flex-col items-center space-y-4">
+              <div
+                class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out relative inline-flex"
+              >
               <input
-                type="file"
-                id="select"
-                accept="image/png, image/gif, image/webp, image/jpeg"
-                class="bg-gradient-to-r opacity-0 w-1 h-1 absolute cursor-pointer"
-                style="z-index: 1; "
-              />
-              <label for="select" class="relative">
-                Choose File
-              </label>
+              type="file"
+              id="select"
+              accept="image/png, image/gif, image/webp, image/jpeg"
+              class="bg-gradient-to-r opacity-0 w-1 h-1 absolute"
+              style="z-index: 1"
+            
+            />
+            <label for="select" class="relative cursor-pointer">Choose File</label>
+
+
+          
+              </div>
+
+              <div
+                id="drag-and-drop"
+                class="w-1/2"
+                style="
+                  border: 2px dashed #ccc;
+                  padding: 20px;
+                  text-align: center;
+                "
+              >
+                <p>Drag and drop upload an image</p>
+              </div>
             </div>
-        
-            <div id="drag-and-drop" class="w-1/2" style="border: 2px dashed #ccc; padding: 20px; text-align: center;">
-              <p>Drag and drop upload an image</p>
+            <div id="div-file-name" class="mb-2 mt-2" style="display: none;">
+              <div class="flex items-center">
+                <h2 class="mr-2 block text-blue-300 py-2 font-bold">File Name:</h2>
+                <p id="file-name">here print the file name uploaded</p>
+              </div>
             </div>
-          </div>
+            
             <div class="mb-4">
               <label
                 class="block text-blue-300 py-2 font-bold mb-2"
@@ -140,7 +159,7 @@
                 class="block text-blue-300 py-2 font-bold mb-2"
                 for="emailaddress"
                 id="hint"
-                style="display: none;"
+                style="display: none"
               >
                 Enter Context: Hint Answer of question 3
               </label>
@@ -171,14 +190,21 @@
                   "
                 />
                 <p class="mb-2" id="loader2" style="display: none">Loading</p>
-                <div
-                  class="text-blue-400 hover:text-blue-600 mb-2"
-                >
-                  <img id="copyButton" src="copy.png" alt="" style="width: 2.5rem; height: 2.5rem;float: right; cursor: pointer; display: none;"> 
+                <div class="text-blue-400 hover:text-blue-600 mb-2">
+                  <img
+                    id="copyButton"
+                    src="copy.png"
+                    alt=""
+                    style="
+                      width: 2.5rem;
+                      height: 2.5rem;
+                      float: right;
+                      cursor: pointer;
+                      display: none;
+                    "
+                  />
                 </div>
-                  
-                       
-                    
+
                 <textarea
                   class="h-60 shadow appearance-none border rounded w-full h-40 bg-gray-800 text-white px-3 py-2 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out mb-4"
                   id="output"
@@ -189,25 +215,25 @@
                   id="language"
                   class="border rounded bg-gray-800 text-white py-2 mt-2 px-3 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                 >
-                <option value="math">Mathematics</option>
-                <option value="english">English</option>
-                <option value="history">History</option>
-                <option value="science">Science</option>
-                <option value="social-studies">Social Studies</option>
-                <option value="foreign-language">Foreign Language</option>
-                <option value="physical-education">Physical Education</option>
-                <option value="art">Art</option>
-                <option value="music">Music</option>
-                <option value="computer-science">Computer Science</option>
-                <option value="economics">Economics</option>
-                <option value="psychology">Psychology</option>
-                <option value="geography">Geography</option>
-                <option value="literature">Literature</option>
-                <option value="philosophy">Philosophy</option>
-                <option value="health-education">Health Education</option>
-                <option value="chemistry">Chemistry</option>
-                <option value="biology">Biology</option>
-                <option value="physics">Physics</option>
+                  <option value="math">Mathematics</option>
+                  <option value="english">English</option>
+                  <option value="history">History</option>
+                  <option value="science">Science</option>
+                  <option value="social-studies">Social Studies</option>
+                  <option value="foreign-language">Foreign Language</option>
+                  <option value="physical-education">Physical Education</option>
+                  <option value="art">Art</option>
+                  <option value="music">Music</option>
+                  <option value="computer-science">Computer Science</option>
+                  <option value="economics">Economics</option>
+                  <option value="psychology">Psychology</option>
+                  <option value="geography">Geography</option>
+                  <option value="literature">Literature</option>
+                  <option value="philosophy">Philosophy</option>
+                  <option value="health-education">Health Education</option>
+                  <option value="chemistry">Chemistry</option>
+                  <option value="biology">Biology</option>
+                  <option value="physics">Physics</option>
                 </select>
               </div>
             </div>
@@ -340,7 +366,6 @@
         </div>
       </div>
     </div>
-  
   </body>
 
   <!-- Include Tesseract.js library -->
@@ -349,53 +374,82 @@
   <script src="/app.js"></script>
   <script>
     window.addEventListener("load", async () => {
-  // (A) GET HTML ELEMENTS
-  const labelProblem = document.getElementById("problem");
-  const labelHint = document.getElementById("hint");
+      // (A) GET HTML ELEMENTS
+      const labelProblem = document.getElementById("problem");
+      const labelHint = document.getElementById("hint");
+  
+      const hSel = document.getElementById("select");
+      const hRes = document.getElementById("input");
+      const hDragAndDrop = document.getElementById("drag-and-drop");
+      const fileName = document.getElementById("file-name")
+      const divFileName=document.getElementById("div-file-name")
+  
+      // (B) CREATE ENGLISH TESSERACT WORKER
+      const worker = await Tesseract.createWorker();
+      await worker.loadLanguage("eng");
+      await worker.initialize("eng");
+  
+      // (C) ON DRAG OVER - SHOW DROP AREA
+      hDragAndDrop.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        hDragAndDrop.style.border = "2px dashed #00f";
+        labelProblem.style.display = "none";
+        labelHint.style.display = "block";
+      });
+  
+      // (D) ON DRAG LEAVE - HIDE DROP AREA
+      hDragAndDrop.addEventListener("dragleave", () => {
+        hDragAndDrop.style.border = "2px dashed #ccc";
+        labelProblem.style.display = "block"; // Show labelProblem
+        divFileName.style.display="block"
+        
+      });
 
-  const hSel = document.getElementById("select");
-  const hRes = document.getElementById("input");
-  const hDragAndDrop = document.getElementById("drag-and-drop");
+  
+      // (E) ON DROP - PERFORM OCR
+      hDragAndDrop.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        hDragAndDrop.style.border = "2px dashed #ccc";
+  
+        const file = e.dataTransfer.files[0];
+        if (file) {
+          const res = await worker.recognize(file);
+          hRes.value = res.data.text;
+          
+          // Change the label text to the file name
+          fileName.textContent = file.name;
+         
+          
+  
+          // Add an alert when the file is uploaded
+          alert("File uploaded successfully!");
+        }
+      });
+  
+      // (F) ON FILE SELECT - IMAGE TO TEXT
+      hSel.onchange = async () => {
+        const file = hSel.files[0];
+        if (file) {
+          const res = await worker.recognize(file);
+          hRes.value = res.data.text;
+          labelProblem.style.display = "none"; // Hide labelProblem
+          labelHint.style.display = "block";
+          divFileName.style.display="block"
+          
+          // Change the label text to the file name
+          fileName.textContent = file.name;
+  
+          // Add an alert when the file is uploaded
+          alert("File uploaded successfully!");
+        }
+      };
+    });
+  </script>
+  
+  
 
-  // (B) CREATE ENGLISH TESSERACT WORKER
-  const worker = await Tesseract.createWorker();
-  await worker.loadLanguage("eng");
-  await worker.initialize("eng");
+  
+ 
 
-  // (C) ON DRAG OVER - SHOW DROP AREA
-  hDragAndDrop.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    hDragAndDrop.style.border = "2px dashed #00f";
-    labelProblem.style.display = "none"; 
-    labelHint.style.display = "block";
-  });
 
-  // (D) ON DRAG LEAVE - HIDE DROP AREA
-  hDragAndDrop.addEventListener("dragleave", () => {
-    hDragAndDrop.style.border = "2px dashed #ccc";
-    labelProblem.style.display = "block"; // Show labelProblem
-  });
-
-  // (E) ON DROP - PERFORM OCR
-  hDragAndDrop.addEventListener("drop", async (e) => {
-    e.preventDefault();
-    hDragAndDrop.style.border = "2px dashed #ccc";
-
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      const res = await worker.recognize(file);
-      hRes.value = res.data.text;
-    }
-  });
-
-  // (F) ON FILE SELECT - IMAGE TO TEXT
-  hSel.onchange = async () => {
-    const res = await worker.recognize(hSel.files[0]);
-    hRes.value = res.data.text;
-    labelProblem.style.display = "none"; // Hide labelProblem
-    labelHint.style.display = "block";
-  };
-});
-
-   </script>
 </html>
